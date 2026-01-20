@@ -9,7 +9,6 @@
 DHT dht1(DHT1_PIN, DHTTYPE);
 DHT dht2(DHT2_PIN, DHTTYPE);
 
-// ProtoPie message structure
 struct MessageValue {
   String message;
   String value;
@@ -20,7 +19,7 @@ void sendMessage(struct MessageValue message) {
   Serial.print("||");
   Serial.print(message.value);
   Serial.println();
-  delay(30); // Adjust if needed
+  delay(30);
 }
 
 struct MessageValue getMessage(String inputtedStr) {
@@ -35,7 +34,7 @@ struct MessageValue getMessage(String inputtedStr) {
 }
 
 void setup() {
-  Serial.begin(115200); // Match ProtoPie Connect baud rate
+  Serial.begin(115200);
   Serial.println("Light + DHT11 sensors");
   dht1.begin();
   dht2.begin();
@@ -51,9 +50,7 @@ void loop() {
   }
 
   if (receivedData.message.equals("power")) {
-    // Optional trigger logic
   }
-
 
   int lightValue = analogRead(LIGHT_SENSOR_PIN);
 
@@ -93,6 +90,5 @@ void loop() {
   humMsg2.value = isnan(hum2) ? "NaN" : String(hum2);
   sendMessage(humMsg2);
 
-  // Delay to avoid flooding ProtoPie Connect
   delay(1000);
 }
